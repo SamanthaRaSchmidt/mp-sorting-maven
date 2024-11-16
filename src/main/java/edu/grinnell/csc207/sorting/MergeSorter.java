@@ -41,6 +41,9 @@ public class MergeSorter<T> implements Sorter<T> {
   // | Methods |
   // +---------+
 
+  public void merge(T[] values) {
+  }
+
   /**
    * Sort an array in place using merge sort.
    *
@@ -56,6 +59,6 @@ public class MergeSorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    // STUB
+    merge(values);
   } // sort(T[])
 } // class MergeSorter

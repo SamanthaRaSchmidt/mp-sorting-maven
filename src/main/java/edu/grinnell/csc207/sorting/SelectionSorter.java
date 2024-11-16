@@ -40,6 +40,30 @@ public class SelectionSorter<T> implements Sorter<T> {
   // | Methods |
   // +---------+
 
+/**
+ * Selects the lowest value and resorts it in the array.
+ * @param values
+ *  The array of values.
+ * @param i
+ *  The current index
+ */
+  public void select(T[] values, int i) {
+    T smallest = values[i];
+    int indexSmall = i;
+    for (int j = i + 1; j < values.length; j++) {
+      if (order.compare(smallest, values[j]) > 0) {
+        smallest = values[j];
+        indexSmall = j;
+      } //endif
+    } // for
+   
+    for (int k = indexSmall; k > i; k--) {
+      values[k] = values[k - 1];
+    } //endfor
+
+    values[indexSmall] = smallest;
+  } // select(T[], int)
+
   /**
    * Sort an array in place using selection sort.
    *
@@ -55,6 +79,8 @@ public class SelectionSorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    // STUB
+    for (int i = 0; i < values.length; i++) {
+      select(values, i);
+    } //for
   } // sort(T[])
 } // class SelectionSorter
