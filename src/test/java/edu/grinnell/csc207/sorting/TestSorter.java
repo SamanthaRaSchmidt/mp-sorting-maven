@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
  * Rather, you should subclass it and initialize stringSorter and
  * intSorter in a static @BeforeAll method.
  *
- * @author Your Name
+ * @author Samantha Schmidt
  * @uathor Samuel A. Rebelsky
  */
 public class TestSorter {
@@ -120,4 +120,72 @@ public class TestSorter {
     ArrayUtils.permute(original);
     assertSorts(expected, original, intSorter);
   } // permutedIntegers
+
+/**
+   * Ensure that an array that is null returns null.
+   */
+  @Test
+  public void nullTest() {
+    if (null == stringSorter) {
+      return;
+    } // if
+    String[] original = {};
+    String[] expected = original.clone();
+    assertSorts(expected, original, stringSorter);
+  } // nullTest
+
+  /**
+   * Ensure that an array of one element returns just that element.
+   */
+  @Test
+  public void oneElementTest() {
+    if (null == stringSorter) {
+      return;
+    } // if
+    String[] original = { "alpha" };
+    String[] expected = original.clone();
+    assertSorts(expected, original, stringSorter);
+  } // oneElementTest
+
+  /**
+   * Ensure that an array where the first half is sorted and the back half
+   * is backwards gets sorted.
+   */
+  @Test
+  public void halfSortedHalfBackTest() {
+    if (null == stringSorter) {
+      return;
+    } // if
+    String[] original = { "alpha", "bravo", "charlie", "giant", "foxtrot", "delta"};
+    String[] expected = { "alpha", "bravo", "charlie", "delta", "foxtrot", "giant" };
+    assertSorts(expected, original, stringSorter);
+  } // halfSortedHalfBackTest
+
+ /**
+   * Ensure that an array where the first half is backwards and the back half
+   * is forwards gets sorted.
+   */
+  @Test
+  public void halfBackHalfSortedTest() {
+    if (null == stringSorter) {
+      return;
+    } // if
+    String[] original = { "giant", "foxtrot", "delta", "alpha", "bravo", "charlie" };
+    String[] expected = { "alpha", "bravo", "charlie", "delta", "foxtrot", "giant" };
+    assertSorts(expected, original, stringSorter);
+  } // halfBackHalfSortedTest
+
+   /**
+   * Ensure that an array where every other element is either in order or backwards
+   * gets sorted.
+   */
+  @Test
+  public void everyOtherTest() {
+    if (null == stringSorter) {
+      return;
+    } // if
+    String[] original = { "alpha", "giant", "bravo", "foxtrot", "charlie", "delta"};
+    String[] expected = { "alpha", "bravo", "charlie", "delta", "foxtrot", "giant" };
+    assertSorts(expected, original, stringSorter);
+  } // halfSortedHaldBackTest
 } // class TestSorter

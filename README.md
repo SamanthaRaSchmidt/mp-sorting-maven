@@ -4,14 +4,14 @@ An exploration of sorting in Java.
 
 Authors
 
-* Your name here.
+* Samantha Schmidt
 * Samuel A. Rebelsky (starter code)
 
 Acknowledgements
 
-* _Forthcoming_.
+* Additional tests were shaped off of the sample tests given.
 
-This code may be found at <https://github.com/USERNAME/mp-sorting-maven>. The original code may be found at <https://github.com/Grinnell-CSC207/mp-sorting-maven>.
+This code may be found at <https://github.com/SamanthaRaSchmidt/mp-sorting-maven.git>. The original code may be found at <https://github.com/Grinnell-CSC207/mp-sorting-maven>.
 
 Description of custom sorting algorithm
 ---------------------------------------
