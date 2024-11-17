@@ -48,16 +48,18 @@ public class InsertionSorter<T> implements Sorter<T> {
    *    The array to sort into
    * @param val
    *    The value to be inserted
-   *
-   * @param
-   *    The index to start at
+   * @param i
+   *    The index to start swapping at
    */
   public void insert(T[] values, T val, int i) {
-    while (order.compare(val, values[i]) < 0) {
-      values[i + 1] = values[i];
-      i--;
-    } //while
-    values[i] = val;
+    int valIndex = i;
+    for (int j = i; j >= 0; j--) {
+      if(order.compare(val, values[j]) < 0) {
+        values[valIndex] = values[j];
+        values[j] = val;
+        valIndex = j;
+      } //endif
+    } //for
   } // insert(T[], int)
 
   /**
@@ -79,7 +81,7 @@ public class InsertionSorter<T> implements Sorter<T> {
     } else {
       for (int i = 1; i < values.length; i++) {
         if(order.compare(values[i], values[i - 1]) < 0) {
-          insert(values, values[i], i - 1);
+          insert(values, values[i], i);
         } // endif
       } // for
     } //endif

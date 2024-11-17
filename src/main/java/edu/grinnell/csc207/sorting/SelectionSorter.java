@@ -56,12 +56,9 @@ public class SelectionSorter<T> implements Sorter<T> {
         indexSmall = j;
       } //endif
     } // for
-   
-    for (int k = indexSmall; k > i; k--) {
-      values[k] = values[k - 1];
-    } //endfor
 
-    values[indexSmall] = smallest;
+    values[indexSmall] = values[i];
+    values[i] = smallest;
   } // select(T[], int)
 
   /**
