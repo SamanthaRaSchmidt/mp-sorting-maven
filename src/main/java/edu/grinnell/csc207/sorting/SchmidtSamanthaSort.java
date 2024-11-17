@@ -56,5 +56,4 @@ public class SchmidtSamanthaSort<T> implements Sorter<T> {
   public void sort(T[] values) {
     // STUB
   } // sort(T[])
-
 } // classSchmidtSamanthaSort

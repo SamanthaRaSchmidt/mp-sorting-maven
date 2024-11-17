@@ -21,7 +21,7 @@ public class QuicksortExperiments {
    * Sort various arrays.
    *
    * @param args
-   *             Command-line arguments; one of the arrays we sort.
+   *   Command-line arguments; one of the arrays we sort.
    */
   public static void main(String[] args) {
     PrintWriter pen = new PrintWriter(System.out, true);

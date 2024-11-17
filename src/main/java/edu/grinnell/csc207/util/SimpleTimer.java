@@ -39,7 +39,7 @@ public class SimpleTimer {
    * Determine how much time has elapsed.
    *
    * @return The number of milliseconds that have ellapsed since
-   *         the timer started.
+   *   the timer started.
    */
   public long elapsed() {
     return this.elapsed + System.currentTimeMillis() - this.start;
@@ -49,7 +49,7 @@ public class SimpleTimer {
    * Stop the timer.
    *
    * @return The number of milliseconds that have ellapsed since
-   *         the timer started.
+   *   the timer started.
    */
   public long stop() {
     this.elapsed = this.elapsed();

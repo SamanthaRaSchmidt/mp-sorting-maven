@@ -46,8 +46,9 @@ public class SortTools {
   /**
    * Prefixes for our sorters.
    */
-  static final String[] prefixes = new String[] { "", "edu.grinnell.csc207.sorting.",
-      "edu.grinnell.csc207.util." };
+  static final String[] PREFIXES =
+      new String[] {"", "edu.grinnell.csc207.sorting.",
+          "edu.grinnell.csc207.util."};
 
   // +------+--------------------------------------------------------
   // | Main |
@@ -57,7 +58,7 @@ public class SortTools {
    * Run the program.
    *
    * @param args
-   *             Command-line arguments. See the help document for details.
+   *   Command-line arguments. See the help document for details.
    */
   public static void main(String[] args) {
     rand = new Random();
@@ -82,7 +83,7 @@ public class SortTools {
       return;
     } // if (!ok)
 
-    // For now, we're printing to standard output. Eventually,
+    // For now, we're printing to standard output.  Eventually,
     // we may want to print to a log file for each sorter.
     PrintWriter pen = new PrintWriter(System.out, true);
 
@@ -115,6 +116,13 @@ public class SortTools {
 
   /**
    * Test a sorter on a series of random arrays.
+   *
+   * @param s
+   *   The sorter to test.
+   * @param pen
+   *   Where to print messages.
+   *
+   * @return true if the tests pass and false otherwise.
    */
   static boolean test(Sorter s, PrintWriter pen) {
     if (pen != null) {
@@ -139,10 +147,10 @@ public class SortTools {
     } // try/catch
 
     // Singleton array
-    // if (pen != null) { pen.println(" Sorting singleton array."); }
-    strings = new String[] { "a" };
+    // if (pen != null) { pen.println("  Sorting singleton array."); }
+    strings = new String[] {"a"};
     s.sort(strings);
-    if (!Arrays.equals(strings, new String[] { "a" })) {
+    if (!Arrays.equals(strings, new String[] {"a"})) {
       if (pen != null) {
         pen.println("  Failed to sort singleton array.");
       } // if
@@ -151,7 +159,7 @@ public class SortTools {
 
     // Array of identical values.
     int size = 70;
-    // if (pen != null) { pen.println(" Sorting identical array."); }
+    // if (pen != null) { pen.println("  Sorting identical array."); }
     strings = new String[size];
     for (int i = 0; i < 70; i++) {
       strings[i] = "eh";
@@ -171,7 +179,7 @@ public class SortTools {
       Integer[] sorted = sampleSortedArray(size);
       Integer[] result = sorted.clone();
 
-      // if (pen != null) { pen.println(" Round " + round + "."); }
+      // if (pen != null) { pen.println("  Round " + round + "."); }
 
       // Test 1: Already in order
       s.sort(result);
@@ -223,6 +231,15 @@ public class SortTools {
   /**
    * Time a sorter on a series of random arrays until it takes
    * more than MIN_USEFUL_TIME milliseconds.
+   *
+   * @param s
+   *   The sorter we're testing.
+   * @param pen
+   *   A printwriter to indicate information about timing. Set
+   *   to null if you don't want information.
+   *
+   * @return
+   *   The first array size that takes more than MIN_USEFUL_TIME
    */
   static int time(Sorter s, PrintWriter pen) {
     long time = 0;
@@ -251,6 +268,14 @@ public class SortTools {
 
   /**
    * Compare a bunch of sorters.
+   *
+   * @param sorters
+   *   The sorters to compare.
+   * @param pen
+   *   Where extra output should go. Set to null if you don't
+   *   want output.
+   *
+   * @return The winning sorter.
    */
   static Sorter compete(Sorter[] sorters, PrintWriter pen) {
     // Set up the comparator
@@ -346,14 +371,14 @@ public class SortTools {
 
     // Print out the final results
     if (pen != null) {
-      System.out.println("\nFinal results");
+      pen.println("\nFinal results");
     } // if pen
     long bestTime = Long.MAX_VALUE;
     Sorter bestSorter = null;
     for (int i = 0; i < sorters.length; i++) {
       if (ok[i]) {
         if (pen != null) {
-          System.out.println(sorters[i].getClass().getName() + ": " + times[i]);
+          pen.println(sorters[i].getClass().getName() + ": " + times[i]);
         } // if pen
         if (times[i] < bestTime) {
           bestTime = times[i];
@@ -383,13 +408,19 @@ public class SortTools {
   } // help()
 
   /**
-   * Get the sorter for a particular class name. Yay introspection!
+   * Get the sorter for a particular class name.  Yay introspection!
+   *
+   * @param name
+   *   The class name of the sorter.
+   *
+   * @return The corresponding sorter. Returns `null` if no sorter
+   *   can be found.
    */
   static Sorter<Comparable> getSorter(String name) {
     Class<?> sclass = null;
     Comparator<Comparable> order = (x, y) -> x.compareTo(y);
 
-    for (String prefix : prefixes) {
+    for (String prefix : PREFIXES) {
       try {
         sclass = Class.forName(prefix + name);
         break;
@@ -404,8 +435,9 @@ public class SortTools {
 
     Constructor<Sorter> construct = null;
     try {
-      construct = (Constructor<Sorter>) sclass.getConstructor(
-          Class.forName("java.util.Comparator"));
+      construct =
+          (Constructor<Sorter>) sclass.getConstructor(
+              Class.forName("java.util.Comparator"));
     } catch (Exception e) {
       System.err.println("Cannot find constructor for " + name);
       System.err.println("  " + e.toString());
@@ -423,6 +455,11 @@ public class SortTools {
   /**
    * Create an array of a particular size in which the values are
    * in order.
+   *
+   * @param size
+   *   The desired size of the result array.
+   *
+   * @return the array
    */
   static Integer[] sampleSortedArray(int size) {
     Integer[] result = new Integer[size];
@@ -437,9 +474,12 @@ public class SortTools {
    * Permute an array.
    *
    * I recall a colleague telling me that this is not a great way to
-   * permute an array. But I also recall an article by Knuth suggesting
-   * that this does randomly arrange things. In any case, it's good
+   * permute an array.  But I also recall an article by Knuth suggesting
+   * that this does randomly arrange things.  In any case, it's good
    * enough for our purposes.
+   *
+   * @param arr
+   *   The array to permute.
    */
   static void permute(Object[] arr) {
     for (int i = 0; i < arr.length; i++) {
@@ -452,6 +492,11 @@ public class SortTools {
    *
    * Or perhaps this is the one that's less correct, even if
    * n is arr.length.
+   *
+   * @param arr
+   *   The array to permute.
+   * @param n
+   *   The number of pairs to swap.
    */
   static void permute(Object[] arr, int n) {
     for (int i = 0; i < n; i++) {
@@ -461,6 +506,9 @@ public class SortTools {
 
   /**
    * Reverse an array.
+   *
+   * @param arr
+   *   The array to reverse.
    */
   static void reverse(Object[] arr) {
     int lo = 0;
@@ -472,6 +520,13 @@ public class SortTools {
 
   /**
    * Swap two values in an array.
+   *
+   * @param arr
+   *   The array.
+   * @param i
+   *   The index of one value.
+   * @param j
+   *   The index of another value.
    */
   static void swap(Object[] arr, int i, int j) {
     Object tmp = arr[i];

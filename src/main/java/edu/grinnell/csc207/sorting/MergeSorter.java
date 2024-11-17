@@ -80,7 +80,6 @@ public class MergeSorter<T> implements Sorter<T> {
    */
   @SuppressWarnings("unchecked")
   public void merge(T[] values) {
-
     if (values.length < 2) {
       return;
     } else {

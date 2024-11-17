@@ -132,6 +132,7 @@ public class Quicksorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
+    int lengthh = values.length;
     if (values.length <= 1) {
       return;
     } // endif
