@@ -41,8 +41,10 @@ public class MergeSorter<T> implements Sorter<T> {
   // | Methods |
   // +---------+
 
+  @SuppressWarnings("unchecked")
   public void mergeHelper(T[] values, T[] left, T[] right) {
-    T[] empty = java.util.Arrays.copyOf(right, values.length);
+    T[] empty = (T[]) new Object[values.length];
+
     for (int i = 0; i < empty.length; i++) {
       int rightIndex = 0;
       int leftIndex = 0;
@@ -56,25 +58,33 @@ public class MergeSorter<T> implements Sorter<T> {
       } //endif
     } //endfor
 
-    values = java.util.Arrays.copyOf(empty, values.length);
+    for (int i = 0; i < values.length; i++) {
+      values[i] = empty[i];
+    } //for
   } //mergeHelper(T[], T[])
 
+  @SuppressWarnings("unchecked")
   public void merge(T[] values) {
 
     if (values.length < 2) {
       return;
     } else {
       int mid = values.length / 2;
-      T[] left = java.util.Arrays.copyOfRange(values, 0, mid);
-      T[] right = java.util.Arrays.copyOfRange(values, mid + 1, values.length - 1);
+
+      T[] left = (T[]) new Object[mid];
+      for (int i = 0; i < left.length; i++) {
+        left[i] = values[i];
+      } //endfor
+
+      T[] right = (T[]) new Object[values.length - mid];
+      for (int i = 0; i < right.length; i++) {
+        right[i] = values[mid + i];
+      } //endfor
          merge(left);
          merge(right);
-  
       mergeHelper(values, left, right);
-
-    }
-
-  }
+    } //endif
+  } //merge(T[])
 
   /**
    * Sort an array in place using merge sort.
