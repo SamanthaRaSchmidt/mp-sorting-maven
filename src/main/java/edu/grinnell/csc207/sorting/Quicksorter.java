@@ -1,6 +1,7 @@
 package edu.grinnell.csc207.sorting;
 
 import java.util.Comparator;
+import java.util.Random;
 
 /**
  * Something that sorts using Quicksort.
@@ -42,6 +43,74 @@ public class Quicksorter<T> implements Sorter<T> {
   // +---------+
 
   /**
+   * Chooses a pivot.
+   * @param array
+   *  An array with the same length as the final array.
+   * @return median
+   *    the int that is the middle most point of 3 random numbers
+   *     between 0 and the length of the array.
+   */
+  public int choosePivot(T[] array) {
+    int median;
+    Random rand = new Random();
+    int a = rand.nextInt(array.length);
+    int b = rand.nextInt(array.length);
+    int c = rand.nextInt(array.length);
+
+    if (((a >= b) && (a <= c)) || ((a >= c) && (a <= b))) {
+      median = a;
+    } else if (((b >= a) && (b <= c)) || ((b >= c) && (b <= a))) {
+      median = b;
+    } else {
+      median = c;
+    } //endif
+
+    return median;
+  } // choosePivot(T[])
+
+  @SuppressWarnings("unchecked")
+  public void partition(T[] values) {
+    int pivot = choosePivot(values);
+
+    values[pivot] = values[0];
+    values[0] = values[pivot];
+
+    int small = 1;
+    int large = values.length - 1;
+
+    for (int i = 1; i < values.length; i++) {
+      if (order.compare(values[pivot], values[i]) < 0) {
+        T smallVal = values[small];
+        values[i] = smallVal;
+        values[small] = values[i];
+        small++;
+      } else {
+        T largeVal = values[large];
+        values[i] = largeVal;
+        values[large] = values[i];
+        large--;
+      } //endif
+    } //endfor
+
+    values[pivot] = values[0];
+
+    T[] firstHalf = (T[]) new Object[pivot];
+    for (int i = 0; i < firstHalf.length; i++) {
+      firstHalf[i] = values[i];
+    } //endfor
+    if (firstHalf.length > 2) {
+      partition(firstHalf);
+    } //endif
+    T[] lastHalf = (T[]) new Object[values.length - pivot];
+    for (int i = 0; i < lastHalf.length; i++) {
+      lastHalf[i] = values[i];
+    } //endfor
+    if(lastHalf.length > 2) {
+      partition(lastHalf);
+    } //endif
+  } // partition(T[])
+
+  /**
    * Sort an array in place using Quicksort.
    *
    * @param values
@@ -56,6 +125,9 @@ public class Quicksorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    // STUB
+    if (values.length <= 1) {
+      return;
+    } //endif
+    partition(values);
   } // sort(T[])
 } // class Quicksorter

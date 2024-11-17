@@ -91,6 +91,9 @@ public class MergeSorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
+    if (values.length <= 1) {
+      return;
+    } //endif
     merge(values);
   } // sort(T[])
 } // class MergeSorter
