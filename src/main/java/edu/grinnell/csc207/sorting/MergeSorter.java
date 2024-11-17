@@ -41,7 +41,39 @@ public class MergeSorter<T> implements Sorter<T> {
   // | Methods |
   // +---------+
 
+  public void mergeHelper(T[] values, T[] left, T[] right) {
+    T[] empty = java.util.Arrays.copyOf(right, values.length);
+    for (int i = 0; i < empty.length; i++) {
+      int rightIndex = 0;
+      int leftIndex = 0;
+
+      if (order.compare(right[rightIndex], left[leftIndex]) < 0) {
+        empty[i] = right[rightIndex];
+        rightIndex++;
+      } else {
+        empty[i] = left[leftIndex];
+        leftIndex++;
+      } //endif
+    } //endfor
+
+    values = java.util.Arrays.copyOf(empty, values.length);
+  } //mergeHelper(T[], T[])
+
   public void merge(T[] values) {
+
+    if (values.length < 2) {
+      return;
+    } else {
+      int mid = values.length / 2;
+      T[] left = java.util.Arrays.copyOfRange(values, 0, mid);
+      T[] right = java.util.Arrays.copyOfRange(values, mid + 1, values.length - 1);
+         merge(left);
+         merge(right);
+  
+      mergeHelper(values, left, right);
+
+    }
+
   }
 
   /**
