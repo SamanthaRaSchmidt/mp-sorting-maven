@@ -6,8 +6,8 @@ import java.util.Comparator;
  * My own sorting algorithm.
  *
  * @param <T>
- *   The types of values that are sorted.
- * 
+ *            The types of values that are sorted.
+ *
  * @author Samantha Schmidt
  */
 public class SchmidtSamanthaSort<T> implements Sorter<T> {
@@ -28,8 +28,8 @@ public class SchmidtSamanthaSort<T> implements Sorter<T> {
    * Create a sorter using a particular comparator.
    *
    * @param comparator
-   *   The order in which elements in the array should be ordered
-   *   after sorting.
+   *                   The order in which elements in the array should be ordered
+   *                   after sorting.
    */
   public SchmidtSamanthaSort(Comparator<? super T> comparator) {
     this.order = comparator;
@@ -57,4 +57,4 @@ public class SchmidtSamanthaSort<T> implements Sorter<T> {
     // STUB
   } // sort(T[])
 
-}
+} // classSchmidtSamanthaSort

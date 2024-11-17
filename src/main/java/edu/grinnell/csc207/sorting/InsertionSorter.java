@@ -54,7 +54,7 @@ public class InsertionSorter<T> implements Sorter<T> {
   public void insert(T[] values, T val, int i) {
     int valIndex = i;
     for (int j = i; j >= 0; j--) {
-      if(order.compare(val, values[j]) < 0) {
+      if (order.compare(val, values[j]) < 0) {
         values[valIndex] = values[j];
         values[j] = val;
         valIndex = j;
@@ -77,10 +77,9 @@ public class InsertionSorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    if (values.length == 0) {
-    } else {
+    if (values.length != 0) {
       for (int i = 1; i < values.length; i++) {
-        if(order.compare(values[i], values[i - 1]) < 0) {
+        if (order.compare(values[i], values[i - 1]) < 0) {
           insert(values, values[i], i);
         } // endif
       } // for

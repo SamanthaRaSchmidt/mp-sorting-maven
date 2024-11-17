@@ -45,22 +45,22 @@ public class TestSorter {
    * permutation and assert that it equals the original.
    *
    * @param <T>
-   *   The type of values in the array.
+   *               The type of values in the array.
    * @param sorted
-   *   The sorted array.
+   *               The sorted array.
    * @param perm
-   *   The permuted sorted array.
+   *               The permuted sorted array.
    * @param sorter
-   *   The thing to use to sort.
+   *               The thing to use to sort.
    */
   public <T> void assertSorts(T[] sorted, T[] perm, Sorter<? super T> sorter) {
     T[] tmp = perm.clone();
     sorter.sort(perm);
     assertArrayEquals(sorted, perm,
-      () -> String.format("sort(%s) yields %s rather than %s",
-          Arrays.toString(tmp), 
-          Arrays.toString(perm), 
-          Arrays.toString(sorted)));
+        () -> String.format("sort(%s) yields %s rather than %s",
+            Arrays.toString(tmp),
+            Arrays.toString(perm),
+            Arrays.toString(sorted)));
   } // assertSorts
 
   // +-------+-------------------------------------------------------
@@ -106,11 +106,11 @@ public class TestSorter {
    * Ensure that a randomly permuted version of a moderate-sized
    * array sorts correctly.
    */
-  @Test 
-  public void permutedIntegersTest() { 
-    int SIZE = 100; 
-    if (null == intSorter) { 
-      return; 
+  @Test
+  public void permutedIntegersTest() {
+    int SIZE = 100;
+    if (null == intSorter) {
+      return;
     } // if
     Integer[] original = new Integer[SIZE];
     for (int i = 0; i < SIZE; i++) {
@@ -121,7 +121,7 @@ public class TestSorter {
     assertSorts(expected, original, intSorter);
   } // permutedIntegers
 
-/**
+  /**
    * Ensure that an array that is null returns null.
    */
   @Test
@@ -156,12 +156,12 @@ public class TestSorter {
     if (null == stringSorter) {
       return;
     } // if
-    String[] original = { "alpha", "bravo", "charlie", "giant", "foxtrot", "delta"};
+    String[] original = { "alpha", "bravo", "charlie", "giant", "foxtrot", "delta" };
     String[] expected = { "alpha", "bravo", "charlie", "delta", "foxtrot", "giant" };
     assertSorts(expected, original, stringSorter);
   } // halfSortedHalfBackTest
 
- /**
+  /**
    * Ensure that an array where the first half is backwards and the back half
    * is forwards gets sorted.
    */
@@ -175,8 +175,9 @@ public class TestSorter {
     assertSorts(expected, original, stringSorter);
   } // halfBackHalfSortedTest
 
-   /**
-   * Ensure that an array where every other element is either in order or backwards
+  /**
+   * Ensure that an array where every other element is either in order or
+   * backwards
    * gets sorted.
    */
   @Test
@@ -184,7 +185,7 @@ public class TestSorter {
     if (null == stringSorter) {
       return;
     } // if
-    String[] original = { "alpha", "giant", "bravo", "foxtrot", "charlie", "delta"};
+    String[] original = { "alpha", "giant", "bravo", "foxtrot", "charlie", "delta" };
     String[] expected = { "alpha", "bravo", "charlie", "delta", "foxtrot", "giant" };
     assertSorts(expected, original, stringSorter);
   } // halfSortedHaldBackTest

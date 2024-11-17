@@ -11,8 +11,8 @@ public class TestSelectionSorter extends TestSorter {
    */
   @BeforeAll
   static void setup() {
-    stringSorter = new SelectionSorter<String>((x,y) -> x.compareTo(y));
-    intSorter = new SelectionSorter<Integer>((x,y) -> x.compareTo(y));
+    stringSorter = new SelectionSorter<String>((x, y) -> x.compareTo(y));
+    intSorter = new SelectionSorter<Integer>((x, y) -> x.compareTo(y));
   } // setup()
 
 } // class TestSelectionSorter
