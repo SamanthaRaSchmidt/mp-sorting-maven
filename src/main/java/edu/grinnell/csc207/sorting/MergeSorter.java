@@ -58,13 +58,18 @@ public class MergeSorter<T> implements Sorter<T> {
     int leftIndex = 0;
 
     for (int i = 0; i < empty.length; i++) {
-      if (order.compare(right[rightIndex], left[leftIndex]) < 0 && rightIndex < right.length) {
-        empty[i] = right[rightIndex];
-        rightIndex++;
+      if (rightIndex < right.length) {
+        if ((order.compare(right[rightIndex], left[leftIndex]) < 0) && (rightIndex < right.length)) {
+          empty[i] = right[rightIndex];
+          rightIndex++;
+        } else {
+          empty[i] = left[leftIndex];
+          leftIndex++;
+        } // endif
       } else {
         empty[i] = left[leftIndex];
         leftIndex++;
-      } // endif
+      } //endif
     } // endfor
 
     for (int i = 0; i < empty.length; i++) {
