@@ -51,12 +51,12 @@ public class Quicksorter<T> implements Sorter<T> {
    *         the int that is the middle most point of 3 random numbers
    *         between 0 and the length of the array.
    */
-  public int choosePivot(T[] array) {
+  public int choosePivot(T[] array, int start, int end) {
     int median;
     Random rand = new Random();
-    int a = rand.nextInt(1, array.length - 1);
-    int b = rand.nextInt(1, array.length - 1);
-    int c = rand.nextInt(1, array.length - 1);
+    int a = rand.nextInt(start, end);
+    int b = rand.nextInt(start, end);
+    int c = rand.nextInt(start, end);
 
     if (((a >= b) && (a <= c)) || ((a >= c) && (a <= b))) {
       median = a;
@@ -75,60 +75,43 @@ public class Quicksorter<T> implements Sorter<T> {
    * @param values
    *               The array to sort
    */
-  @SuppressWarnings("unchecked")
-  public void partition(T[] values) {
-    int pivot = choosePivot(values);
+  public void partition(T[] values, int begin, int end) {
+    int pivot = choosePivot(values, begin, end);
     T pivotVal = values[pivot];
 
-    values[pivot] = values[0];
-    values[0] = pivotVal;
+    values[pivot] = values[begin];
+    values[begin] = pivotVal;
 
-    int small = 1;
-    int large = values.length - 1;
-    String lastMoved = null;
+    int small = begin + 1;
+    int large = end;
 
     while (small != large) {
-      String aString = (String) values[small];
       if (order.compare(pivotVal, values[small]) > 0) {
         small++;
-        lastMoved = "small";
       } else {
         T largeVal = values[large];
         values[large] = values[small];
         values[small] = largeVal;
         large--;
-        lastMoved = "large";
       } // endif
     }
 
-    if (lastMoved.equals("large")) {
+    if (order.compare(pivotVal, values[small]) < 0) {
       small = small - 1;
-    } // endif
+    } //endif
 
-    values[0] = values[small];
+    values[begin] = values[small];
     values[small] = pivotVal;
 
-    T[] firstHalf = (T[]) new Object[small];
-    for (int i = 0; i < firstHalf.length; i++) {
-      firstHalf[i] = values[i];
-    } // endfor
-    if (firstHalf.length > 2) {
-      partition(firstHalf);
-    } // endif
+    int lengthFirst = small - begin;
+    int lengthLast = (end + 1)- (small + 1);
+    if (lengthFirst > 1) {
+      partition(values, begin, small - 1);
+    } //endif
 
-    int lengthLast = 0;
-    if (lastMoved.equals("large")) {
-       lengthLast = values.length - large;
-    } else {
-      lengthLast = values.length - small + 1;
-    }
-    T[] lastHalf = (T[]) new Object[lengthLast];
-    for (int i = 0; i < lastHalf.length; i++) {
-      lastHalf[i] = values[small + 1 + i];
-    } // endfor
-    if (lastHalf.length > 2) {
-      partition(lastHalf);
-    } // endif
+    if (lengthLast > 1) {
+      partition(values, small + 1, end);
+    } //endif
   } // partition(T[])
 
   /**
@@ -149,6 +132,6 @@ public class Quicksorter<T> implements Sorter<T> {
     if (values.length <= 1) {
       return;
     } // endif
-    partition(values);
+    partition(values, 0, values.length - 1);
   } // sort(T[])
 } // class Quicksorter
