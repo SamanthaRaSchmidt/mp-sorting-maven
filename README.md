@@ -15,4 +15,4 @@ This code may be found at <https://github.com/SamanthaRaSchmidt/mp-sorting-maven
 
 Description of custom sorting algorithm
 ---------------------------------------
-Currently not implemented.
+Starts with a merge sort algorithm, moves to a insertion sort algorithm if the length is less than 20 of the values array.
